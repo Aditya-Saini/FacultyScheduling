@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Aditya-Saini/FacultyScheduling/issues"
   },
-  "homepage": "https://github.com/Aditya-Saini/FacultyScheduling#readme"
+  "homepage": "https://github.com/Aditya-Saini/FacultyScheduling#readme",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1"
+  }
 }
