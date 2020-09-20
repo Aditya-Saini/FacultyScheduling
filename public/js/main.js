@@ -52,7 +52,7 @@ $(document).ready(function() {
       allDaySlot: false,
       selectHelper: true,
       select: function(start, end, allDay) {
-        var title = prompt(start.day);
+        var title = prompt(start);
         if (title) {
           calendar.fullCalendar('renderEvent', {
               title: title,
