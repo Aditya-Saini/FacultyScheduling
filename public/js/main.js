@@ -139,7 +139,7 @@ $(document).ready(function() {
           title: 'Click for Google',
           start: new Date(y, m, 28),
           end: new Date(y, m, 29),
-          url: 'https://ccp.cloudaccess.net/aff.php?aff=5188',
+          url: 'https://google.com',
           className: 'success'
         }
       ],
