@@ -1,5 +1,6 @@
 var express=require('express'),
     app=express(),
+    bodyParser=require("body-parser"),
     mongoose=require('mongoose'),
     passport=require('passport'),
     flash=require('connect-flash'),
@@ -10,12 +11,13 @@ var	User=require("./models/user");
 
 var indexRoutes=require('./routes/index');
 
-mongoose.connect("mongodb://localhost/db", {useNewUrlParser: true,useUnifiedTopology: true}).then(()=>{
+mongoose.connect("mongodb://localhost/faculty_scheduling", {useNewUrlParser: true,useUnifiedTopology: true, useCreateIndex: true}).then(()=>{
     console.log("Connected to DB");
 }).catch(err=>{
     console.log("Error:",err.message);
 });
 
+app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride("_method"));

@@ -13,7 +13,8 @@ router.get("/register", function(req, res){
 });
 
 router.post("/register", function(req, res){
-	var newUser=new User({username:req.body.username});
+	console.log(req.body);
+	var newUser=new User({username:req.body.name, email:req.body.email, phone:req.body.phone});
 	User.register(newUser, req.body.password, function(err, user){
 		if(err){
 			return res.render("register",{error:err.message});
@@ -29,7 +30,7 @@ router.get("/login", function(req, res){
 	res.render("login");
 });
 router.post("/login",passport.authenticate("local", {
-	successRedirect:"/calender",
+	successRedirect:"/",
 	failureRedirect:"/login"
 }), function(req, res){
 	
@@ -39,7 +40,7 @@ router.post("/login",passport.authenticate("local", {
 router.get("/logout", function(req, res){
 	req.logout();
 	req.flash("success", "logged you Out!");
-	res.redirect("/calender");
+	res.redirect("/");
 });
 
 
