@@ -8,11 +8,11 @@ middlewareObj.isLoggedIn = function(req, res, next){
     res.redirect("/login");
 }
 
-middlewareObj.loggedIn = (req, res , next)=>{
+middlewareObj.loggedIn = (req, res, next)=>{
     if(req.isAuthenticated()){
-        res.redirect("back");
+        return res.redirect("back");
     }
-    next();
+    return next();
 }
 
 module.exports = middlewareObj;
