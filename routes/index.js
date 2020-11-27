@@ -20,7 +20,7 @@ router.post("/event", middlewareObj.isLoggedIn, (req, res)=>{
 	var start=edate.slice(0,(edate.indexOf("-")-1));
 	var end=edate.slice((edate.indexOf("-")+2),);
 	console.log(start,end);
-	var newEvent={
+	var newEvent= new Task({
 		title: req.body.ename,
 		description: req.body.edesc,
 		start: start,
@@ -29,7 +29,7 @@ router.post("/event", middlewareObj.isLoggedIn, (req, res)=>{
 		icon: req.body.eicon,
 		assignedto:"lil",
 		assignedby:"lul"
-	};
+	});
 	Task.create(newEvent, (err, data)=>{
 		if(err)
 			console.log(err);
