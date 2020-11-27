@@ -26,7 +26,7 @@
 <div id="modal-view-event-add" class="modal modal-top fade calendar-modal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <form id="add-event">
+      <form id="add-event" action="/event" method="POST">
         <div class="modal-body">
         <h4>Add Event Detail</h4>        
           <div class="form-group">
@@ -70,5 +70,6 @@
     </div>
   </div>
 </div>
+
 <%- include("partials/footer")%>
   

@@ -3,10 +3,40 @@ var router=express.Router();
 var passport=require("passport");
 const middlewareObj = require("../middleware");
 var User=require("../models/user"),
-	middleware=require('../middleware');
+	Task=require("../models/task");
 
-router.get("/", middleware.isLoggedIn, function(req, res){
-	res.render("calendar");
+router.get("/", middlewareObj.isLoggedIn, function(req, res){
+	Task.find({}, (err, event)=>{
+		if(err)
+			console.log(err);
+		else
+			res.render("calendar",{event:event});
+	});
+	
+});
+
+router.post("/event", middlewareObj.isLoggedIn, (req, res)=>{
+	var edate=req.body.edate;
+	var start=edate.slice(0,(edate.indexOf("-")-1));
+	var end=edate.slice((edate.indexOf("-")+2),);
+	console.log(start,end);
+	var newEvent={
+		title: req.body.ename,
+		description: req.body.edesc,
+		start: start,
+		end: end,
+		background: req.body.ecolor,
+		icon: req.body.eicon,
+		assignedto:"lil",
+		assignedby:"lul"
+	};
+	Task.create(newEvent, (err, data)=>{
+		if(err)
+			console.log(err);
+		else
+			res.redirect("/");
+	});
+	console.log(newEvent);
 });
 
 

@@ -39,7 +39,8 @@ jQuery(document).ready(function(){
                 right: 'today prev,next'
             },
             events: [
-                {
+                <% event.each
+                /*{
                     title: 'Barber',
                     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu pellentesque nibh. In nisl nulla, convallis ac nulla eget, pellentesque pellentesque magna.',
                     start: '2020-05-05',
@@ -154,7 +155,7 @@ jQuery(document).ready(function(){
                     className: 'fc-bg-blue',
                     icon : "medkit",
                     allDay: false
-                }
+                }*/
             ],
             eventRender: function(event, element) {
                 if(event.icon){
