@@ -7,5 +7,5 @@ userSchema=new mongoose.Schema({
 	email:String,
 	phone:Number
 });
-userSchema.plugin(passportLocalMongoose, {usernameField: 'email'});
+userSchema.plugin(passportLocalMongoose);
 module.exports=mongoose.model("User", userSchema);

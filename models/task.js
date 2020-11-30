@@ -7,8 +7,14 @@ var taskSchema = new mongoose.Schema({
     end: Date,
     background: String,
     icon: String,
-    assignedto: String,
-    assignedby: String
+    assignedto: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    },
+    assignedby: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    }
 });
 
 module.exports = mongoose.model("Task", taskSchema);
