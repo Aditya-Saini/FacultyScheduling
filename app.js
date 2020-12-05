@@ -31,10 +31,7 @@ app.use(require("express-session")({
 
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new localStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
-}, User.authenticate()));
+passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 app.use(function(req, res, next){

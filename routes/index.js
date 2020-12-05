@@ -2,21 +2,33 @@ var express=require("express");
 var router=express.Router({mergeParams:true});
 var passport=require("passport");
 const middlewareObj = require("../middleware");
+const user = require("../models/user");
 var User=require("../models/user"),
 	Task=require("../models/task"),
 	Event=require("../models/event")
 
-router.get("/", function(req, res){
+router.get("/",middlewareObj.isLoggedIn, function(req, res){
 	console.log("at home now");
 	console.log(req.user._id);
 	Event.findById(req.user._id).populate("events").exec((err, foundEvent)=>{
 		if(err)
 			console.log(err);
-		else
-			res.render("calendar",{event:foundEvent.events, userid:req.user._id});
+		else{
+			
+			User.find({}, (err, foundUsers)=>{
+				if(err)
+					console.log(err)
+				else
+					res.render("calendar",{event:foundEvent.events, userid:req.user._id, people:foundUsers});
+			})
+			
+		
+		}
 	});
 	
 });
+
+
 
 router.post("/event/:id", middlewareObj.isLoggedIn, (req, res)=>{
 	var edate=req.body.edate;
@@ -35,7 +47,7 @@ router.post("/event/:id", middlewareObj.isLoggedIn, (req, res)=>{
 		assignedby:req.user._id
 	});
 	
-	Event.findById(req.user._id, (err, foundEvent)=>{
+	Event.findById(req.params.id, (err, foundEvent)=>{
 		if(err)
 			console.log(err);
 		else{
@@ -75,12 +87,13 @@ router.post("/register", middlewareObj.loggedIn, function(req, res){
 				console.log("err at new event");
 			}
 		});
-			passport.authenticate("local")(req, res, function(){
+/*			passport.authenticate("local")(req, res, function(){
 					req.flash("success","Welcome to YelpCamp"+ user.username);
-					res.redirect("/");
+					res.redirect("/login");
 			});
-			
+*/			
 		});
+		res.redirect("/login");
 	});
 
 router.get("/login", middlewareObj.loggedIn,  function(req, res){
@@ -100,5 +113,39 @@ router.get("/logout", function(req, res){
 	res.redirect("/");
 });
 
+router.get("/:id",middlewareObj.isLoggedIn, function(req, res){
+	console.log("at home now");
+	console.log(req.user._id);
+	console.log(req.params.id);
+	Event.findById(req.params.id).populate("events").exec((err, foundEvent)=>{
+		if(err)
+			console.log(err);
+		else{
+			
+			User.find({}, (err, foundUsers)=>{
+				if(err)
+					console.log(err)
+				else
+					res.render("calendar",{event:foundEvent.events, userid:req.params.id, people:foundUsers});
+			})
+			
+		
+		}
+	});
+	
+});
 
+/*router.get("/:id",middlewareObj.isLoggedIn, function(req, res){
+	console.log("at home now");
+	console.log(req.user._id);
+	console.log(req.params.id);
+	Event.findById(req.params.id).populate("events").exec((err, foundEvent)=>{
+		if(err)
+			console.log(err);
+		else
+			res.render("calendar",{event:foundEvent.events, userid:req.user._id});
+	});
+	
+});
+*/
 module.exports=router;
