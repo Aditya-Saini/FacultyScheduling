@@ -30,7 +30,7 @@ router.get("/",middlewareObj.isLoggedIn, function(req, res){
 					var dend = d.setDate(d.getDate() + 2);*/
 					var dstart=moment().startOf('day').add(5, "hours").add(30,"minutes").format();
 					var dend=moment().startOf('day').add(1, "days").add(5, "hours").add(30,"minutes").format();
-					console.log(dstart, dend);
+					//console.log(dstart, dend);
 					Task.find( //query today up to tonight
 					{
 						start: {$gte: dstart, $lt: dend},
@@ -159,6 +159,55 @@ router.get("/user/:id",middlewareObj.isLoggedIn, function(req, res){
 		}
 	});
 	
+});
+
+router.post("/find",middlewareObj.isLoggedIn,(req, res)=>{
+	var edate=req.body.edate
+	if(edate.indexOf("-") != -1){
+		var d=new Date(edate.slice(0,(edate.indexOf("-")-1)));
+		var d1=new Date(edate.slice((edate.indexOf("-")+2),));
+		start=moment(d).add(5, 'hours').add(30,'minutes').format();
+		end=moment(d1).add(5, 'hours').add(30,'minutes').format();
+		//console.log(start,end);
+	
+	}
+	else{
+		console.log(edate);
+		var d=new Date(edate);
+		console.log(d);
+		//var start=moment(d).format("isoDateTime").add(5, 'hours').add(30,'minutes').format();
+		var start=moment(d).add(5, 'hours').add(30,'minutes').format();
+		var end=start;
+		
+	}
+	User.find({}, (err, foundUsers)=>{
+		if(err)
+			console.log(err)
+		else{
+			var freeUsers=[],a;
+			for(i=0;i<foundUsers.length;i++){
+				freeUsers.push(
+					foundUsers[i]._id.toString()
+				);
+				console.log("id:",foundUsers[i]._id);
+			}
+			Task.find( //query today up to tonight
+				{
+					start: {$gte: start, $lt: end}
+				}).sort({ start: 1 }).then(foundTasks=>{
+					console.log("tasks:",foundTasks);
+					for(i=0;i<foundTasks.length;i++){
+						a=freeUsers.indexOf(foundTasks[i].assignedto.toString());
+						console.log(a);
+						freeUsers.splice(a,1);
+						console.log("final:",freeUsers);
+					}
+					
+				});
+				
+		}
+	});
+	res.redirect("/");
 });
 
 /*router.get("/:id",middlewareObj.isLoggedIn, function(req, res){

@@ -19,6 +19,8 @@
   });
 });
 
+
+
 (function () {    
     'use strict';
     // ------------------------------------------------------- //
@@ -187,4 +189,7 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+    $(".search").on("click", ()=>{
+    jQuery('#modal-view-event-add-1').modal();
+})
   </script>
