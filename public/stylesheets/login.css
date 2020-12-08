@@ -2,6 +2,9 @@ h1 {
     font-weight: bold;
     margin: 0;
 }
+body{
+    margin: 5px 0;
+}
 
 p {
     font-size: 14px;
@@ -24,8 +27,8 @@ a {
 
 button {
     border-radius: 20px;
-    border: 1px solid #ff4b2b;
-    background-color: #ff4b2b;
+    border: none;
+    background-color:  #000046;
     color: #ffffff;
     font-size: 12px;
     font-weight: bold;
@@ -185,9 +188,9 @@ input {
 }
 
 .overlay {
-    background: #ff416c;
-    background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
-    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    background: #000046; /* fallback for old browsers */
+ 	background: -webkit-linear-gradient(to right, #000046, #1cb5e0); /* Chrome 10-25, Safari 5.1-6 */
+  	background: linear-gradient(to right, #000046, #1cb5e0);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
@@ -243,6 +246,10 @@ input {
 
 .Signin{
     margin-bottom: 25px;
+}
+
+#signIn{
+    border: 1px solid  #000046;
 }
 
 @media screen and (max-width: 600px) {

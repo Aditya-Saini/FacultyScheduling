@@ -1,6 +1,6 @@
 <%- include("partials/header")%>
 <% people.forEach((users)=>{ %>
-<a href="/<%=users._id%>"><%= users.username %></a>
+<a href="/user/<%=users._id%>"><%= users.username %></a>
 <% }) %>
 <!--Mobile view-->
 <div class="row">
@@ -29,7 +29,11 @@
     
        <section class="today-box" id="today-box">
           <!--<span class="breadcrumb">Today</span>-->
-          <h3 class="date-title">May 15, 2018</h3>
+          <% 
+            var title= new Date();
+            title = title.toLocaleDateString(undefined, {month:'short'}) + ' ' + title.toLocaleDateString(undefined, {day:'2-digit'}) + ',' + title.toLocaleDateString(undefined, {year:'numeric'})
+          %>
+          <h3 class="date-title"><%=title%></h3>
      
           <!--<div class="plus-icon">
              <i class="ion ion-ios-add"></i>
@@ -45,6 +49,19 @@
            
              </h3>
              <div class="events-wrapper">
+                <% tasks.forEach((data)=>{ %>
+                  <% var date = data.start.toISOString();
+                     var content = date.slice(date.indexOf("T")+1, 16);%>
+               <div class="event">
+                 <i class="ion ion-ios-flame hot"></i>
+                 <h4 class="event__point"><%=content%></h4>
+                 <p class="event__description">
+                  <%=data.description%>
+                 </p>
+               </div>
+               <% }); %>
+            </div>
+               <!--<div class="events-wrapper">
                 <div class="event">
                    <i class="ion ion-ios-flame hot"></i>
                    <h4 class="event__point">11:00 am</h4>
@@ -84,7 +101,7 @@
                       Customer dialog on Skype.
                    </p>
                 </div>
-             </div>
+             </div>-->
              <button class="add-event-button">
                 <span class="add-event-button__title">Add Event</span>
            
@@ -131,7 +148,7 @@
  <div id="modal-view-event-add" class="modal modal-top fade calendar-modal">
    <div class="modal-dialog modal-dialog-centered">
      <div class="modal-content">
-       <form id="add-event">
+       <form id="add-event" action="/event/<%=userid%>" method="POST">
          <div class="modal-body">
          <h4>Add Event Detail</h4>        
            <div class="form-group">

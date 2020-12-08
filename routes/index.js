@@ -1,6 +1,7 @@
 var express=require("express");
 var router=express.Router({mergeParams:true});
 var passport=require("passport");
+var moment = require('moment-timezone');
 const middlewareObj = require("../middleware");
 const user = require("../models/user");
 var User=require("../models/user"),
@@ -8,8 +9,13 @@ var User=require("../models/user"),
 	Event=require("../models/event")
 
 router.get("/",middlewareObj.isLoggedIn, function(req, res){
-	console.log("at home now");
-	console.log(req.user._id);
+	//console.log("at home now");
+	//console.log(req.user._id, new Date().toISOString);
+	/*console.log(Task.find( //query today up to tonight
+		{
+			assignedto:req.user._id,
+			"start": {"$gte": new Date(2020, 12, 4), "$lt": new Date()}}));*/
+			
 	Event.findById(req.user._id).populate("events").exec((err, foundEvent)=>{
 		if(err)
 			console.log(err);
@@ -18,11 +24,25 @@ router.get("/",middlewareObj.isLoggedIn, function(req, res){
 			User.find({}, (err, foundUsers)=>{
 				if(err)
 					console.log(err)
-				else
-					res.render("calendar",{event:foundEvent.events, userid:req.user._id, people:foundUsers});
-			})
-			
-		
+				else{
+					/*var d= new Date();
+					var dnow = d.setDate(d.getDate() - 1);
+					var dend = d.setDate(d.getDate() + 2);*/
+					var dstart=moment().startOf('day').add(5, "hours").add(30,"minutes").format();
+					var dend=moment().startOf('day').add(1, "days").add(5, "hours").add(30,"minutes").format();
+					console.log(dstart, dend);
+					Task.find( //query today up to tonight
+					{
+						start: {$gte: dstart, $lt: dend},
+						assignedto:req.user._id
+					}).sort({ start: 1 }).then(foundTasks=>{
+						console.log(foundTasks);
+							
+						res.render("calendar",{event:foundEvent.events, userid:req.user._id, people:foundUsers, tasks:foundTasks, moment:moment});
+				
+						});
+				}
+			});
 		}
 	});
 	
@@ -31,10 +51,24 @@ router.get("/",middlewareObj.isLoggedIn, function(req, res){
 
 
 router.post("/event/:id", middlewareObj.isLoggedIn, (req, res)=>{
-	var edate=req.body.edate;
-	var start=edate.slice(0,(edate.indexOf("-")-1));
-	var end=edate.slice((edate.indexOf("-")+2),);
-	console.log(start,end);
+	var edate=(req.body.edate).toString();
+	if(edate.indexOf("-") != -1){
+		var d=new Date(edate.slice(0,(edate.indexOf("-")-1)));
+		var d1=new Date(edate.slice((edate.indexOf("-")+2),));
+		start=moment(d).add(5, 'hours').add(30,'minutes').format();
+		end=moment(d1).add(5, 'hours').add(30,'minutes').format();
+		//console.log(start,end);
+	
+	}
+	else{
+		console.log(edate);
+		var d=new Date(edate);
+		console.log(d);
+		//var start=moment(d).format("isoDateTime").add(5, 'hours').add(30,'minutes').format();
+		var start=moment(d).add(5, 'hours').add(30,'minutes').format();
+		var end=start;
+		
+	}
 	var newEvent= new Task({
 		title: req.body.ename,
 		description: req.body.edesc,
@@ -46,6 +80,7 @@ router.post("/event/:id", middlewareObj.isLoggedIn, (req, res)=>{
 		assignedto:req.params.id,
 		assignedby:req.user._id
 	});
+
 	
 	Event.findById(req.params.id, (err, foundEvent)=>{
 		if(err)
@@ -71,7 +106,6 @@ router.get("/register", middlewareObj.loggedIn, function(req, res){
 });
 
 router.post("/register", middlewareObj.loggedIn, function(req, res){
-	//console.log(req.body);
 	var newUser=new User({username:req.body.name, email:req.body.email, phone:req.body.phone});
 	var newTask;
 	User.register(newUser, req.body.password, function(err, user){
@@ -86,12 +120,7 @@ router.post("/register", middlewareObj.loggedIn, function(req, res){
 				console.log(err);
 				console.log("err at new event");
 			}
-		});
-/*			passport.authenticate("local")(req, res, function(){
-					req.flash("success","Welcome to YelpCamp"+ user.username);
-					res.redirect("/login");
-			});
-*/			
+		});			
 		});
 		res.redirect("/login");
 	});
@@ -113,10 +142,7 @@ router.get("/logout", function(req, res){
 	res.redirect("/");
 });
 
-router.get("/:id",middlewareObj.isLoggedIn, function(req, res){
-	console.log("at home now");
-	console.log(req.user._id);
-	console.log(req.params.id);
+router.get("/user/:id",middlewareObj.isLoggedIn, function(req, res){
 	Event.findById(req.params.id).populate("events").exec((err, foundEvent)=>{
 		if(err)
 			console.log(err);
