@@ -1,17 +1,93 @@
-<%- include("partials/header")%> 
+<!DOCTYPE html>
+<html>
+	<head>
 
-<h1 style="text-align:center;">
-	Login
-</h1>
-<form style="width: 25%;margin:25px auto;" action="/login" method="POST">
-	<div class="form-group">
-		<input class="form-control" type="text" name="username" placeholder="username">
-	</div>
-	<div class="form-group">
-		<input class="form-control" type="password" name="password" placeholder="password">
-	</div>
-	<div class="form-group">
-		<input class="btn btn-lg btn-primary btn-block" type="submit" value="Login">
-	</div>
-</form>
-<%- include("partials/footer")%>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>FacultyScheduling</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    
+	    <link href="/stylesheets/login.css" rel="stylesheet">
+	</head>
+	<body>
+		<!-- <nav class="navbar navbar-default">
+  			<div class="container-fluid">
+    			<div class="navbar-header">
+     				<a class="navbar-brand" href="/">
+        			FS
+      				</a>
+    			</div>
+	 			<div class="collapse navbar-collapse">
+		  		<ul class="nav navbar-nav navbar-right">
+			  		<li><a href="/login">Login <i class="fa fa-user"></i></a></li>
+			  		<li><a href="/register">Sign Up <i class="fa fa-user-plus"></i></a></li>
+		  		</ul>
+			  	</div>
+  			</div>
+		</nav> -->
+		<div class="container right-panel-active" id="container">
+			<div class="form-container sign-up-container">
+                <form action="#">
+        			<h1>Welcome To Apsit</h1>
+    				<!-- <div class="social-container">
+			            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+			            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+			            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+			        </div>
+			        <span>or use your email for registration</span>
+			        <input type="text" placeholder="Name" />
+			        <input type="email" placeholder="Email" />
+			        <input type="password" placeholder="Password" />
+			        <button>Sign Up</button> -->
+                </form>
+			</div>
+			<!-- <div class="form-container sign-in-container">
+				<form action="/login" method="POST">
+					<h1 id="header"style="text-align:center;">
+					LOGIN
+					</h1>
+					<div class="form-group">
+						<input class="form-control" type="text" name="username" placeholder="username">
+					</div>
+					<div class="form-group">
+						<input class="form-control" type="password" name="password" placeholder="password">
+					</div>
+					<div class="form-group">
+						<input class="btn btn-lg btn-primary btn-block" type="submit" value="Login">
+					</div>
+				</form>
+			</div> -->
+			<div class="form-container sign-in-container">
+			    <form action="/login" method="POST">
+			        <h1 class="Signin">Sign In</h1>
+			        <!-- <div class="social-container">
+			            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+			            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+			            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+			        </div> -->
+			        <!-- <span>or use your account</span> -->
+			        <input type="email" name="username" placeholder="Email" />
+			        <input type="password" name="password" placeholder="Password" />
+			        <a href="#">Forgot your password?</a>
+			        <button type="submit">Sign In</button>
+			    </form>
+			</div>
+			<div class="overlay-container">
+				<div class="overlay">
+			        <div class="overlay-panel overlay-left">
+			            <h1>Welcome Back!</h1>
+			            <p>
+			                To keep connected with us please login with your personal info
+			            </p>
+			            <button class="ghost" id="signIn">Sign In</button>
+			        </div>
+			        <div class="overlay-panel overlay-right">
+<!-- 			            <h1>Hello, Friend!</h1>
+			            <p>Enter your personal details and start journey with us</p> -->
+			            <button class="transparent" id="signUp"></button>
+			        </div>
+			    </div>
+			</div>
+		</div>
+		<script src="/js/login.js"></script>
+	</body>
+</html>
