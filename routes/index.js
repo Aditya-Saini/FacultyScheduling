@@ -210,6 +210,15 @@ router.post("/find",middlewareObj.isLoggedIn,(req, res)=>{
 	res.redirect("/");
 });
 
+router.delete("/event/:id", middlewareObj.checkTaskOwnership, function(req, res){
+	Task.findByIdAndRemove(req.params.id, function(err){
+		if(err)
+			res.redirect("/");
+		else
+			res.redirect("/");
+	});
+});
+
 /*router.get("/:id",middlewareObj.isLoggedIn, function(req, res){
 	console.log("at home now");
 	console.log(req.user._id);
