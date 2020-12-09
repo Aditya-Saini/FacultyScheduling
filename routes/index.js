@@ -151,8 +151,20 @@ router.get("/user/:id",middlewareObj.isLoggedIn, function(req, res){
 			User.find({}, (err, foundUsers)=>{
 				if(err)
 					console.log(err)
-				else
-					res.render("calendar",{event:foundEvent.events, userid:req.params.id, people:foundUsers});
+				else{
+					var dstart=moment().startOf('day').add(5, "hours").add(30,"minutes").format();
+					var dend=moment().startOf('day').add(1, "days").add(5, "hours").add(30,"minutes").format();
+					//console.log(dstart, dend);
+					Task.find( //query today up to tonight
+					{
+						start: {$gte: dstart, $lt: dend},
+						assignedto:req.params.id
+					}).sort({ start: 1 }).then(foundTasks=>{
+						console.log(foundTasks);
+						res.render("calendar",{event:foundEvent.events, userid:req.params.id, people:foundUsers, tasks:foundTasks, moment:moment});
+					})
+				}
+				
 			})
 			
 		

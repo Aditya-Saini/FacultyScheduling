@@ -1,4 +1,5 @@
 <script>
+    user="<%=currentUser._id%>"
     jQuery(document).ready(function(){
   jQuery('.datetimepicker').datepicker({
       timepicker: true,
@@ -180,7 +181,17 @@
                     jQuery('.user-id').html(event.assignedby);
                     jQuery('.modal-id').html(event.id);
                     jQuery('.eventUrl').attr('href',event.url);
+                    if(user==$(".user-id").html()){
+                        var link = $(".delete-form").attr("action");
+                        var deleteLink = link.slice(0, 7).concat($(".modal-id").html()).concat('?_method=DELETE');
+                        $(".delete-form").attr("action", deleteLink);
+                        $("#private").show();
+                    }
+                    else{
+                        $("#private").hide();
+                    }
                     jQuery('#modal-view-event').modal();
+
             },
         })
     });
@@ -188,7 +199,7 @@
 })(jQuery);
 </script>
 <script>
-    user="<%=currentUser._id%>"
+    
     $("#wrapper").toggleClass("toggled");
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
@@ -197,15 +208,5 @@
     $(".search").on("click", ()=>{
     jQuery('#modal-view-event-add-1').modal();
     });
-    $("#modal-view-event").on("click", ()=>{
-        if(user==$(".user-id").html()){
-            var link = $(".delete-form").attr("action");
-            var deleteLink = link.slice(0, 7).concat($(".modal-id").html()).concat('?_method=DELETE');
-            $(".delete-form").attr("action", deleteLink);
-            $("#private").show();
-        }
-        else{
-            $("#private").hide();
-        }
-    })
+    
   </script>
