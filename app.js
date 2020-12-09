@@ -11,7 +11,7 @@ var	User=require("./models/user");
 
 var indexRoutes=require('./routes/index');
 
-mongoose.connect("mongodb://localhost/faculty_scheduling", {useNewUrlParser: true,useUnifiedTopology: true, useCreateIndex: true}).then(()=>{
+mongoose.connect("mongodb://localhost/faculty_scheduling", {useNewUrlParser: true,useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }).then(()=>{
     console.log("Connected to DB");
 }).catch(err=>{
     console.log("Error:",err.message);

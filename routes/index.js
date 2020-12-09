@@ -36,7 +36,7 @@ router.get("/",middlewareObj.isLoggedIn, function(req, res){
 						start: {$gte: dstart, $lt: dend},
 						assignedto:req.user._id
 					}).sort({ start: 1 }).then(foundTasks=>{
-						console.log(foundTasks);
+						//console.log(foundTasks);
 							
 						res.render("calendar",{event:foundEvent.events, userid:req.user._id, people:foundUsers, tasks:foundTasks, moment:moment});
 				
@@ -228,6 +228,52 @@ router.delete("/event/:id", middlewareObj.checkTaskOwnership, function(req, res)
 			res.redirect("/");
 		else
 			res.redirect("/");
+	});
+});
+
+router.get("/:id/edit", middlewareObj.checkTaskOwnership, function(req, res){
+	Task.findById(req.params.id, function(err, foundTask){
+			res.render("edit",{task:foundTask});
+	});
+});
+
+router.put("/event/:id", middlewareObj.checkTaskOwnership, function(req, res){
+	var edate=(req.body.edate).toString();
+	if(edate.indexOf("-") != -1){
+		var d=new Date(edate.slice(0,(edate.indexOf("-")-1)));
+		var d1=new Date(edate.slice((edate.indexOf("-")+2),));
+		start=moment(d).add(5, 'hours').add(30,'minutes').format();
+		end=moment(d1).add(5, 'hours').add(30,'minutes').format();
+		//console.log(start,end);
+	
+	}
+	else{
+		console.log(edate);
+		var d=new Date(edate);
+		console.log(d);
+		//var start=moment(d).format("isoDateTime").add(5, 'hours').add(30,'minutes').format();
+		var start=moment(d).add(5, 'hours').add(30,'minutes').format();
+		var end=start;
+		
+	}
+	var newEvent= {
+		title: req.body.ename,
+		description: req.body.edesc,
+		start: start,
+		end: end,
+		background: req.body.ecolor,
+		icon: req.body.eicon,
+		// TODO: Improve security insted of finding by object id using different method.
+	};
+	
+	Task.findByIdAndUpdate(req.params.id,newEvent,{new: true}, function(err, updatedCampground){
+		if(err){
+			console.log(err);
+			res.redirect("/");
+		}
+		else{
+			res.redirect("/");
+		}
 	});
 });
 

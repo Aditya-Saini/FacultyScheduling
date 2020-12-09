@@ -184,7 +184,9 @@
                     if(user==$(".user-id").html()){
                         var link = $(".delete-form").attr("action");
                         var deleteLink = link.slice(0, 7).concat($(".modal-id").html()).concat('?_method=DELETE');
+                        var editLink = "/".concat($(".modal-id").html()).concat("/edit");
                         $(".delete-form").attr("action", deleteLink);
+                        $("#edit").attr("href", editLink);
                         $("#private").show();
                     }
                     else{
