@@ -192,7 +192,9 @@
             <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
             <ul id="myUL">
               <% people.forEach((users)=>{ %>
+                <%if(!users._id.equals(currentUser._id)){%>
               <li><a href="/user/<%=users._id%>"><%= users.username %></a></li>
+              <%}%>
               <% }) %>
             </ul>
           </div>               
