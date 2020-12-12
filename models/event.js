@@ -10,6 +10,12 @@ var eventSchema = new mongoose.Schema({
             type:mongoose.Schema.Types.ObjectId,
             ref:"Task"
         }
+    ],
+    future:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Task"
+        }
     ]
 });
 

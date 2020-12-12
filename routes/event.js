@@ -129,7 +129,7 @@ router.get("/user/:id",middlewareObj.isLoggedIn, function(req, res){
 							start: {$gte: dstart, $lt: dend},
 							assignedto:req.params.id
 						}).sort({ start: 1 }).then(foundTasks=>{
-							res.render("calendar",{event:foundEvent.events, userid:req.params.id, people:foundUsers, tasks:foundTasks, moment:moment});
+							res.render("userCalendar",{event:foundEvent.events, userid:req.params.id, people:foundUsers, tasks:foundTasks, moment:moment});
 						})
 					}
 
@@ -138,6 +138,53 @@ router.get("/user/:id",middlewareObj.isLoggedIn, function(req, res){
 			
 			}
 		});
+});
+
+router.post("/event/user/:id", middlewareObj.isLoggedIn, (req, res)=>{
+	var edate=(req.body.edate).toString();
+	if(edate.indexOf("-") != -1){
+		var d=new Date(edate.slice(0,(edate.indexOf("-")-1)));
+		var d1=new Date(edate.slice((edate.indexOf("-")+2),));
+		start=moment(d).add(5, 'hours').add(30,'minutes').format();
+		end=moment(d1).add(5, 'hours').add(30,'minutes').format();
+	
+	}
+	else{
+		console.log(edate);
+		var d=new Date(edate);
+		console.log(d);
+		var start=moment(d).add(5, 'hours').add(30,'minutes').format();
+		var end=start;
+		
+	}
+	var newEvent= new Task({
+		title: req.body.ename,
+		description: req.body.edesc,
+		start: start,
+		end: end,
+		background: req.body.ecolor,
+		icon: req.body.eicon,
+		assignedto:req.params.id,
+		assignedby:req.user._id
+	});
+
+	
+	Event.findById(req.params.id, (err, foundEvent)=>{
+		if(err)
+			console.log(err);
+		else{
+			Task.create(newEvent, (err, data)=>{
+				if(err)
+					console.log(err);
+				else{
+					data.save();
+					foundEvent.future.push(data);
+					foundEvent.save();
+					res.redirect("/");
+				}
+			});
+		}
+	});
 });
 
 module.exports=router;

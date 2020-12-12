@@ -15,25 +15,30 @@ router.get("/",middlewareObj.isLoggedIn, function(req, res){
 		if(err)
 			console.log(err);
 		else{
-			
-			User.find({}, (err, foundUsers)=>{
+			Event.findById(req.user._id).populate("future").exec((err, futureEvent)=>{
 				if(err)
-					console.log(err)
+					console.log(err);
 				else{
-					var dstart=moment().startOf('day').add(5, "hours").add(30,"minutes").format();
-					var dend=moment().startOf('day').add(1, "days").add(5, "hours").add(30,"minutes").format();
-					Task.find( //query today up to tonight
-					{
-						start: {$gte: dstart, $lt: dend},
-						assignedto:req.user._id
-					}).sort({ start: 1 }).then(foundTasks=>{
+					User.find({}, (err, foundUsers)=>{
+						if(err)
+							console.log(err)
+						else{
+							var dstart=moment().startOf('day').add(5, "hours").add(30,"minutes").format();
+							var dend=moment().startOf('day').add(1, "days").add(5, "hours").add(30,"minutes").format();
+							Task.find( //query today up to tonight
+							{
+								start: {$gte: dstart, $lt: dend},
+								assignedto:req.user._id
+							}).sort({ start: 1 }).then(foundTasks=>{
+
+								res.render("calendar",{event:foundEvent.events, userid:req.user._id, futureTask:futureEvent,people:foundUsers, tasks:foundTasks, moment:moment, messages:req.flash("success")});
 							
-						res.render("calendar",{event:foundEvent.events, userid:req.user._id, people:foundUsers, tasks:foundTasks, moment:moment, messages:req.flash("success")});
-				
-						});
+								});
+						}
+					});
 				}
 			});
-		}
+		}	
 	});
 	
 });
