@@ -53,15 +53,17 @@
              </h3>
              <div class="events-wrapper">
                 <% tasks.forEach((data)=>{ %>
-                  <% var date = data.start.toISOString();
-                     var content = date.slice(date.indexOf("T")+1, 16);%>
-               <div class="event">
-                 <i class="ion ion-ios-flame hot"></i>
-                 <h4 class="event__point"><%=content%></h4>
-                 <p class="event__description">
-                  <%=data.description%>
-                 </p>
-               </div>
+                  <%if (data.confirmation == true){%>
+                    <% var date = data.start.toISOString();
+                       var content = date.slice(date.indexOf("T")+1, 16);%>
+                 <div class="event">
+                   <i class="ion ion-ios-flame hot"></i>
+                   <h4 class="event__point"><%=content%></h4>
+                   <p class="event__description">
+                    <%=data.description%>
+                   </p>
+                 </div>
+                 <%}%>
                <% }); %>
             </div>
              <button class="add-event-button">

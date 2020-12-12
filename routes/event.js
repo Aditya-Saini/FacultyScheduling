@@ -33,6 +33,7 @@ router.post("/event/:id", middlewareObj.isLoggedIn, (req, res)=>{
 		end: end,
 		background: req.body.ecolor,
 		icon: req.body.eicon,
+		confirmation: true,
 		assignedto:req.params.id,
 		assignedby:req.user._id
 	});
