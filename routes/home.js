@@ -23,6 +23,7 @@ router.get("/",middlewareObj.isLoggedIn, function(req, res){
 						if(err)
 							console.log(err)
 						else{
+							console.log(futureEvent);
 							var dstart=moment().startOf('day').add(5, "hours").add(30,"minutes").format();
 							var dend=moment().startOf('day').add(1, "days").add(5, "hours").add(30,"minutes").format();
 							Task.find( //query today up to tonight

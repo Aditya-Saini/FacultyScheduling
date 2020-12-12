@@ -1,7 +1,7 @@
 <%- include("partials/header")%>
-<%if (futureTask.length){%>
-<% futureTask.forEach((data)=>{ %>
-  <%=data.title%>
+<%if (futureTask.future.length > 0){%>
+<% futureTask.future.forEach((data)=>{ %>
+  <p><%=data.title%></p>
 <% }); %>
 <%}%>
   
