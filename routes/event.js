@@ -112,8 +112,8 @@ router.put("/event/edit/:id", middlewareObj.checkTaskOwnership, function(req, re
 router.get("/user/:id",middlewareObj.isLoggedIn, function(req, res){
 	var paramid=req.params.id;
 		Event.findById(paramid).populate("events").exec((err, foundEvent)=>{
-			if(err){
-
+			if(err && !foundEvent){
+				console.log(err);
 			}
 				
 			else{
