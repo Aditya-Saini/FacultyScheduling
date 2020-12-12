@@ -7,6 +7,10 @@ var taskSchema = new mongoose.Schema({
     end: Date,
     background: String,
     icon: String,
+    confirmation: {
+        type: Boolean,
+        default: false
+    },
     assignedto: {
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
