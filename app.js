@@ -9,7 +9,9 @@ var express=require('express'),
 
 var	User=require("./models/user");
 
-var indexRoutes=require('./routes/index');
+var indexRoutes=require('./routes/index'),
+    homeRoutes=require("./routes/home"),
+    eventsRoutes=require("./routes/event");
 
 mongoose.connect("mongodb://localhost/faculty_scheduling", {useNewUrlParser: true,useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }).then(()=>{
     console.log("Connected to DB");
@@ -42,6 +44,8 @@ app.use(function(req, res, next){
 });
 
 app.use(indexRoutes);
+app.use(homeRoutes);
+app.use(eventsRoutes);
 
 
 app.listen(3000, ()=>{
