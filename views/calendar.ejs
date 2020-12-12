@@ -1,9 +1,8 @@
 <%- include("partials/header")%>
-<% people.forEach((users)=>{ %>
-<a href="/user/<%=users._id%>"><%= users.username %></a>
-<% }) %>
+
+  
 <!--Mobile view-->
-<div class="row">
+<div class="row pt-3">
   <div class="col pl-60">
 
      <div class="mobile-wrapper">
@@ -61,47 +60,6 @@
                </div>
                <% }); %>
             </div>
-               <!--<div class="events-wrapper">
-                <div class="event">
-                   <i class="ion ion-ios-flame hot"></i>
-                   <h4 class="event__point">11:00 am</h4>
-                   <span class="event__duration">in 30 minutes.</span>
-                   <p class="event__description">
-                      Monday briefing with the team (...).
-                   </p>
-                </div>
-                <div class="event">
-                   <i class="ion ion-ios-flame done"></i>
-                   <h4 class="event__point">12:00 pm</h4>
-                   <span class="event__duration">in 1 hour.</span>
-                   <p class="event__description">
-                      Lunch with Paul Mccartney @Burgers House!
-                   </p>
-                </div>
-                <div class="event active">
-                   <i class="ion ion-ios-radio-button-on icon-in-active-mode"></i>
-                   <h4 class="event__point">14:00 pm</h4>
-                   <p class="event__description">
-                      Meet clients from project.
-                   </p>
-                </div>
-                <div class="event">
-                   <i class="ion ion-ios-flame-outline upcoming"></i>
-                   <h4 class="event__point">20:45 pm</h4>
-                   <span class="event__duration">in 45 minutes.</span>
-                   <p class="event__description">
-                      Watch sci-fi series.
-                   </p>
-                </div>
-                <div class="event">
-                   <i class="ion ion-ios-flame-outline upcoming"></i>
-                   <h4 class="event__point">23:15 pm</h4>
-                   <span class="event__duration">in 20 minutes.</span>
-                   <p class="event__description">
-                      Customer dialog on Skype.
-                   </p>
-                </div>
-             </div>-->
              <button class="add-event-button">
                 <span class="add-event-button__title">Add Event</span>
            
@@ -143,7 +101,7 @@
                  <div class="modal-footer">
                    <div id="private" style="display: none;">
                     <a class="btn btn-warning" id="edit" href="">Edit</a>
-                    <form class="delete-form" action="/event/?_method=DELETE" method="POST">
+                    <form class="delete-form" action="/event/delete/?_method=DELETE" method="POST">
                       <button  class="btn btn-danger">
                         Delete
                       </button>
@@ -223,6 +181,32 @@
      </div>
    </div>
  </div>
+ <div id="modal-view-event-add-2" class="modal modal-top fade calendar-modal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form id="add-event" action="/find" method="POST">
+        <div class="modal-body">
+        <h4>Search Person</h4>        
+          <div class="form-group">
+            <label>Enter Name</label>
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+            <ul id="myUL">
+              <% people.forEach((users)=>{ %>
+                <%if(!users._id.equals(currentUser._id)){%>
+              <li><a href="/user/<%=users._id%>"><%= users.username %></a></li>
+              <%}%>
+              <% }) %>
+            </ul>
+          </div>               
+      </div>
+        <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" >Save</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>        
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 <%- include("partials/footer")%>
 <%- include("partials/data")%>
 </body>
