@@ -49,6 +49,7 @@ router.post("/event/:id", middlewareObj.isLoggedIn, (req, res)=>{
 					data.save();
 					foundEvent.events.push(data);
 					foundEvent.save();
+					req.flash("success", "Event Added successfully");
 					res.redirect("/");
 				}
 			});

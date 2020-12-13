@@ -28,7 +28,7 @@ router.get("/",middlewareObj.isLoggedIn, function(req, res){
 						assignedto:req.user._id
 					}).sort({ start: 1 }).then(foundTasks=>{
 							
-						res.render("calendar",{event:foundEvent.events, userid:req.user._id, people:foundUsers, tasks:foundTasks, moment:moment, messages:req.flash("success")});
+						res.render("calendar",{event:foundEvent.events, userid:req.user._id, people:foundUsers, search:req.query.user, tasks:foundTasks, moment:moment, messages:req.flash("success")});
 				
 						});
 				}
@@ -84,7 +84,7 @@ router.post("/find",middlewareObj.isLoggedIn,(req, res)=>{
 				
 		}
 	});
-	res.redirect("/");
+	res.redirect("/?user=",freeUsers);
 });
 
 module.exports=router;
