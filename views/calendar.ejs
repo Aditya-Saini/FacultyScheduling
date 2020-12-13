@@ -206,24 +206,29 @@
     </div>
   </div>
 </div>
-<div id="modal-view-event-add-2" class="modal modal-top fade calendar-modal">
+<div id="modal-view-event-add-3" class="modal modal-top fade calendar-modal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <form id="add-event" action="/find" method="POST">
         <div class="modal-body">
         <h4>Available Staff</h4>
-        <% user.forEach((users)=>{ %>
-          <%if(!users._id.equals(currentUser._id)){%>
+        <%if(search.length>0){%>
+        <% search.forEach((users)=>{ %>
+          <% people.forEach((user)=>{ %>
+            <%if(user._id.equals(users)){%>
+              <%if(!user.equals(currentUser._id)){%>
+         
           <div class="form-group">
-              
-              <%}%>
-              <% }) %>
-          </div>               
+          <label id="pri"><a href="/user/<%=users%>"><%= user.username %></a></label> 
+          </div> 
+              <%}%> 
+            <%}%>
+          <% }) %>   
+        <%})%>
+        <% } %>           
       </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>        
       </div>
-      </form>
     </div>
   </div>
 </div>

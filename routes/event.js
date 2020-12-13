@@ -9,6 +9,8 @@ var User=require("../models/user"),
 	Task=require("../models/task"),
 	Event=require("../models/event");
 
+var freeUser=[];
+
 router.post("/event/:id", middlewareObj.isLoggedIn, (req, res)=>{
 	var edate=(req.body.edate).toString();
 	if(edate.indexOf("-") != -1){
@@ -130,7 +132,7 @@ router.get("/user/:id",middlewareObj.isLoggedIn, function(req, res){
 							start: {$gte: dstart, $lt: dend},
 							assignedto:req.params.id
 						}).sort({ start: 1 }).then(foundTasks=>{
-							res.render("calendar",{event:foundEvent.events, userid:req.params.id, people:foundUsers, tasks:foundTasks, moment:moment});
+							res.render("calendar",{event:foundEvent.events, userid:req.params.id, search:freeUser, people:foundUsers, tasks:foundTasks, moment:moment});
 						})
 					}
 
