@@ -9,7 +9,7 @@
 }
 
 #wrapper.toggled {
-    padding-left: 200px;
+    padding-left: 250px;
 }
 
 #sidebar-wrapper {
@@ -22,7 +22,7 @@
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background-color:#312A25 !Important;
+    background-color:#041b53d4 !Important;
    
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -50,7 +50,7 @@
 .sidebar-nav {
     position: absolute;
     top: 0;
-    right:15px;
+    right: 0px;
     width: 200px;
     margin: 0;
     padding: 0;
@@ -66,12 +66,13 @@
     display: block;
     text-decoration: none;
     color: #999999;
+    padding-right: 13px;
 }
 
 .sidebar-nav li a:hover {
     text-decoration: none;
     color: #fff;
-    background: #312A25;
+    background: #000046;
 }
 
 .sidebar-nav li a:active,
@@ -94,7 +95,7 @@
     background: none;
 }
 
-@media(min-width:768px) {
+/*@media(min-width:768px) {*/
     #wrapper {
         padding-left: 220px;
     }
@@ -130,10 +131,10 @@
         position: relative;
         margin-right: 0;
     }
-}
+/*}*/
 
 
-@media(max-width:414px) {
+/*@media(max-width:414px) {
 
 #wrapper.toggled #page-content-wrapper {
     position: absolute;
@@ -191,9 +192,95 @@
         position: relative;
         margin-right: 0;
     }
+}*/
 
 
+/*change*/
 
-
+.fc-left h2{
+    color: #ffffff;
+    font-size: 1.6rem;
+    padding-top: 0.4rem;
+    font-family: 'Nunito', sans-serif;
 }
 
+.date-title{
+    text-transform: uppercase;
+    font-size: 1.6rem ;
+    color: #ffffff;
+    font-family: 'Nunito', sans-serif;
+}
+
+.caly{
+    padding-right: 40px;
+    margin-top: 1.5rem;
+}
+
+li a i{
+    color: #eae6e6;
+    padding-top: 15px;
+}
+
+.modal-footer{
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.btn-danger{
+    margin-left: 1.5em;
+}
+
+form div div ul{
+    list-style-type: none;
+    padding-left: 8em;
+}
+
+@media screen and (max-width: 600px) {
+    .caly{
+        display: none;
+    }
+    .calres{
+        display: inline-block;
+        height: 95vh;
+  }
+}
+@media screen and (min-width: 600px) {
+    .caly{
+        display: none;
+    }
+    .calres{
+        display: inline-block;
+        height: 95vh;
+  }
+}
+@media screen and (min-width: 768px) {
+    .calres{
+        display: none;
+    }
+  .caly{
+    display: inline-block;
+    width: 95vw;
+    padding-left: 5em;
+    padding-right: 5em;
+  }
+  .card{
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px){
+  .calres{
+    display: none;
+  }
+  .caly{
+    display: inline-block;
+    width: 95vw;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .calres{
+    display: inline-block;
+  }
+  .caly{
+    display: inline-block;
+  }
+}
