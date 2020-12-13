@@ -1483,3 +1483,6 @@ table{
    font-size: 40px;
    margin-right: 10px;
  }
+ #myUL li{
+   display: none;
+ }
