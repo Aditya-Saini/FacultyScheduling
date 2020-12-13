@@ -1,13 +1,9 @@
 <%- include("partials/header")%>
-<%if (futureTask.future.length > 0){%>
-<% futureTask.future.forEach((data)=>{ %>
-  <p><%=data.title%></p>
-<% }); %>
-<%}%>
+
   
 <!--Mobile view-->
-<div class="row pt-3">
-  <div class="col pl-60">
+<div class="row">
+  <div class="calres col pl-60">
 
      <div class="mobile-wrapper">
      
@@ -82,7 +78,7 @@
 
 
 <!-- Calendar -->
-  <div class="col-9 pr-20">
+  <div class="caly col-9">
      <!--<div class="p-5">-->
      <!--    <h2 class="mb-4">Full Calendar</h2> -->
          <div class="card">
@@ -107,7 +103,7 @@
                  <div class="modal-footer">
                    <div id="private" style="display: none;">
                     <a class="btn btn-warning" id="edit" href="">Edit</a>
-                    <form class="delete-form" action="/event/delete/?_method=DELETE" method="POST">
+                    <form class="delete-form" action="/event/delete/?_method=DELETE" method="POST" style="display: inline-block;">
                       <button  class="btn btn-danger">
                         Delete
                       </button>
@@ -180,7 +176,7 @@
            </div>               
        </div>
          <div class="modal-footer">
-         <button type="submit" class="btn btn-primary" >Save</button>
+         <button type="submit" class="btn btn-primary" >Search</button>
          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>        
        </div>
        </form>
@@ -206,7 +202,39 @@
           </div>               
       </div>
         <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" >Save</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>        
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="modal-view-event-add-3" class="modal modal-top fade calendar-modal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form id="add-event" action="/event/<%=userid%>" method="POST">
+        <div class="modal-body">
+        <h4>Check Event Detail</h4>
+        <%if (futureTask.future.length > 0){%>
+          <% futureTask.future.forEach((data)=>{ %>
+            <div class="form-group">
+              <label>Title: data.title</label>
+            </div>
+            <div class="form-group">
+              <label>Event Date:<br></label>
+            </div>  
+          <% }); %>
+          <%}%>             
+          <div class="form-group">
+            <label>Event Description</label>
+            <textarea class="form-control" name="edesc"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Event Color</label>
+          </div>
+      </div>
+        <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" >Submit</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>        
       </div>
       </form>

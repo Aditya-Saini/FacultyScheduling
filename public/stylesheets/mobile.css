@@ -13,7 +13,7 @@ html {
 	padding-left: 60px !important;
 }
 .pt-3{
-	padding: 3rem 0;
+	padding: 0rem 0;
 }
 
 body {
@@ -386,7 +386,7 @@ body {
 .add-event-button {
 	display: flex;
 	align-items: center;
-	margin-left: auto;
+	margin: auto;
 	border: 0;
 	padding: 0;
 	background: #000046; /* fallback for old browsers */

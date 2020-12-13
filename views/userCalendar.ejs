@@ -48,7 +48,8 @@
            
              </h3>
              <div class="events-wrapper">
-                <% tasks.forEach((data)=>{ %>
+              <% tasks.forEach((data)=>{ %>
+                <%if (data.confirmation == true){%>
                   <% var date = data.start.toISOString();
                      var content = date.slice(date.indexOf("T")+1, 16);%>
                <div class="event">
@@ -58,7 +59,8 @@
                   <%=data.description%>
                  </p>
                </div>
-               <% }); %>
+               <%}%>
+             <% }); %>
             </div>
              <button class="add-event-button">
                 <span class="add-event-button__title">Add Event</span>
