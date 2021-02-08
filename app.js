@@ -9,11 +9,15 @@ var express=require('express'),
 
 var	User=require("./models/user");
 
+var config = require("./config/config.json");
+
 var indexRoutes=require('./routes/index'),
     homeRoutes=require("./routes/home"),
     eventsRoutes=require("./routes/event");
 
-mongoose.connect("mongodb://localhost/faculty_scheduling", {useNewUrlParser: true,useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }).then(()=>{
+var db = config.mongoURI;
+
+mongoose.connect(db, {useNewUrlParser: true,useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }).then(()=>{
     console.log("Connected to DB");
 }).catch(err=>{
     console.log("Error:",err.message);
